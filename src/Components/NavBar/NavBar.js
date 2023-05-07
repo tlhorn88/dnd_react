@@ -20,7 +20,7 @@ function NavBar() {
           )
         })}
         <li>
-          <Link to="https://tabbyportfolio.netlify.app/" target="_blank">Portfolio</Link>
+          <Link to="https://www.google.com" target="_blank">External Test</Link>
         </li>
       </ul>
     </div>
