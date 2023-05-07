@@ -3,7 +3,7 @@ function Page3() {
     <div>
       <p>page 3</p>
     </div>
-  )
+  );
 }
 
 export default Page3;
