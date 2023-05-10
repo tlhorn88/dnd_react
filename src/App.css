@@ -1,3 +1,13 @@
-img {
-  height: 400px;
+body {
+  background-color: var(--background2);
+  color: var(--onBackground);
+}
+
+.cardContainer {
+  background-color: var(--background2);
+  border-radius: 15px;
+  color: var(--background2);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
