@@ -20,7 +20,8 @@
 
 .cardHeaderTitle {
   text-transform: uppercase;
-  margin: 0;
+  margin-right: 10px;
+  padding: 10px;
 }
 
 .cardBody {
@@ -36,7 +37,7 @@
 }
 
 .bodyContent {
-  padding: 10px;
+  padding-right: 10px;
   padding-bottom: 40px;
   font-size: 13px;
   line-height: 1.8;

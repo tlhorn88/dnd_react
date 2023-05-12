@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import Card from '../Card/Card';
+import FlipCard from '../FlipCard/FlipCard';
 
 function Page3() {
   const [displayName, changeDisplayName] = useState();
@@ -13,32 +13,37 @@ function Page3() {
       name: 'Coconut milk risotto (Arborio rice pudding)',
       img: 'https://spoonacular.com/recipeImages/639794-312x231.jpg',
       time: 10,
-      likes: 86
+      likes: 86,
+      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
     },
     {
       key: 656297,
       name: 'Pistachio Milk Chocolate Chip Cookies',
       img: 'https://spoonacular.com/recipeImages/656297-312x231.jpg',
       time: 97,
-      likes: 107
+      likes: 107,
+      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
     },
     {
       key: 658778,
       name: 'Rose Petal, Milk and Honey Agar Agar',
       img: 'https://spoonacular.com/recipeImages/658778-312x231.jpg',
       time: 101,
-      likes: 860
+      likes: 860,
+      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
     },
     {
       key: 794350,
       name: 'Cherry Coconut Milk Smoothie',
       img: 'https://spoonacular.com/recipeImages/794350-312x231.jpg',
       time: 15,
-      likes: 6
+      likes: 6,
+      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
     },
   ];
 
   let apiKey = '759ce36523be4f7ab7f8ff69727425af';
+
   const handleInputChange = (e) => {
     changeQueryText(e.target.value);
   };
@@ -70,8 +75,27 @@ function Page3() {
     })
     .then(response => {
       let recipeInfo2 = [];
+      let ingredientList = [];
+      ingredientList.push(response[0].data.extendedIngredients[0].nameClean);
 
+
+
+      console.log("ingredient list!!", ingredientList[0]);
+
+
+      // console.log("response2", response);
       for (let i = 0; i < response.length; i++) {
+        let ingredientList = response[i].data.extendedIngredients;
+        let ingredientListNamesOnly = []
+
+        for (let j = 0; j < ingredientList.length; j++) {
+          ingredientListNamesOnly.push(
+            ingredientList[j].nameClean
+          )
+        }
+
+        console.log("clean Ingredient List", ingredientListNamesOnly);
+
         recipeInfo2.push(
           {
             name: response[i].data.title,
@@ -79,7 +103,9 @@ function Page3() {
             key: response[i].data.id,
             instructions: response[i].data.instructions,
             time: response[i].data.readyInMinutes,
-            likes: response[i].data.aggregateLikes
+            likes: response[i].data.aggregateLikes,
+            description: response[i].data.summary,
+            ingredientList: ingredientListNamesOnly
           }
         )
       }
@@ -111,33 +137,40 @@ function Page3() {
       </form>
       <h2>{displayName}</h2>
 
-
-      {/* {resultsInfo && (
+{/* 
+      {resultsInfo && (
         <ul className='cardContainer'>
           {resultsInfo.map((recipe) => (
-            <Card
+            <FlipCard
               name={recipe.name}
               img={recipe.img}
               likes={recipe.likes}
               time={recipe.time}
+              description={recipe.description}
+              ingredients={recipe.ingredientList}
             />
           ))}
         </ul>
-      )}     */}
+      )}    
+*/}
+
 
       {dummyData && (
         <ul className='cardContainer'>
           {dummyData.map((recipe) => (
-            <Card
+            <FlipCard
               name={recipe.name}
               img={recipe.img}
               likes={recipe.likes}
               time={recipe.time}
+              description={recipe.description}
+              ingredients={recipe.ingredientList}
             />
           ))}
         </ul>
       )}
 
+      
     </div>
   );
 }

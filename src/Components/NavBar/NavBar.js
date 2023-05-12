@@ -2,7 +2,8 @@ import './NavBar.css';
 import { NavLink, Link } from "react-router-dom";
 
 const links = [
-  { path: '/', text: 'Page1' },
+  { path: '/', text: 'Home' },
+  { path: 'page1', text: 'Page2'},
   { path: 'page2', text: 'Page2'},
   { path: 'page3', text: 'Page3'},
 ];

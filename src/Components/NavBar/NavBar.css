@@ -4,6 +4,7 @@
   left: 0;
   width: 100%;
   background-color: var(--secondary);
+  z-index: 2;
 }
 ul.navBarList {
   margin: 0;

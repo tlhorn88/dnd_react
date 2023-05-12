@@ -35,6 +35,7 @@ function Page1() {
   return (
     <div>
       <h1>{randomMonster}</h1>
+
         <img src={require('../../img/puppies1.avif')} />
       <button
         onClick={handleClick}
