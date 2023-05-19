@@ -1,145 +1,91 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FlipCard from '../FlipCard/FlipCard';
+import { useLocation } from 'react-router-dom';
+import pasta from '../../localJSON/pasta.json';
 
 function Page3() {
-  const [displayName, changeDisplayName] = useState();
-  const [queryText, changeQueryText] = useState();
+  console.log(pasta);
+  const location = useLocation();
+  const searchName = new URLSearchParams(location.search).get('searchName');
   const [resultsInfo, changeResultsInfo] = useState();
-  
-  let dummyData = [
-    {
-      key: 639794,
-      name: 'Coconut milk risotto (Arborio rice pudding)',
-      img: 'https://spoonacular.com/recipeImages/639794-312x231.jpg',
-      time: 10,
-      likes: 86,
-      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
-    },
-    {
-      key: 656297,
-      name: 'Pistachio Milk Chocolate Chip Cookies',
-      img: 'https://spoonacular.com/recipeImages/656297-312x231.jpg',
-      time: 97,
-      likes: 107,
-      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
-    },
-    {
-      key: 658778,
-      name: 'Rose Petal, Milk and Honey Agar Agar',
-      img: 'https://spoonacular.com/recipeImages/658778-312x231.jpg',
-      time: 101,
-      likes: 860,
-      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
-    },
-    {
-      key: 794350,
-      name: 'Cherry Coconut Milk Smoothie',
-      img: 'https://spoonacular.com/recipeImages/794350-312x231.jpg',
-      time: 15,
-      likes: 6,
-      ingredientList: ["bacon", "love", "butter", "rainbow sprinkles"]
-    },
-  ];
 
-  let apiKey = '759ce36523be4f7ab7f8ff69727425af';
-
-  const handleInputChange = (e) => {
-    changeQueryText(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    changeDisplayName(queryText);
-    axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${queryText}&number=4`)
-    .then(response => {
-      let recipes = response.data.results;
-      console.log(recipes);
-      let recipeInfo = [];
-
-      for (let i = 0; i < recipes.length; i++) {
-        recipeInfo.push(
-          {
-            key: recipes[i].id
-          }
+  useEffect(() => {
+    if (searchName) {
+      console.log('useeffect is live');
+      const apiKey = '759ce36523be4f7ab7f8ff69727425af';
+      axios
+        .get(
+          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchName}&number=4&instructionsRequired=true`
         )
-      }
+        .then((response) => {
+          console.log('response!', response);
+          let recipes = response.data.results;
+          let recipeInfo = [];
 
-      changeResultsInfo(recipeInfo);
-
-      const promises = recipeInfo.map(async (item) => {
-        const itemResponse = await axios.get(`https://api.spoonacular.com/recipes/${item.key}/information?apiKey=${apiKey}`);
-        return itemResponse;
-      })
-      return Promise.all(promises);
-    })
-    .then(response => {
-      let recipeInfo2 = [];
-      let ingredientList = [];
-      ingredientList.push(response[0].data.extendedIngredients[0].nameClean);
-
-
-
-      console.log("ingredient list!!", ingredientList[0]);
-
-
-      // console.log("response2", response);
-      for (let i = 0; i < response.length; i++) {
-        let ingredientList = response[i].data.extendedIngredients;
-        let ingredientListNamesOnly = []
-
-        for (let j = 0; j < ingredientList.length; j++) {
-          ingredientListNamesOnly.push(
-            ingredientList[j].nameClean
-          )
-        }
-
-        console.log("clean Ingredient List", ingredientListNamesOnly);
-
-        recipeInfo2.push(
-          {
-            name: response[i].data.title,
-            img: response[i].data.image,
-            key: response[i].data.id,
-            instructions: response[i].data.instructions,
-            time: response[i].data.readyInMinutes,
-            likes: response[i].data.aggregateLikes,
-            description: response[i].data.summary,
-            ingredientList: ingredientListNamesOnly
+          for (let i = 0; i < recipes.length; i++) {
+            recipeInfo.push({
+              key: recipes[i].id,
+            });
           }
-        )
-      }
-      console.log("recipeInfo2", recipeInfo2);
-      changeResultsInfo(recipeInfo2);
+          console.log("recipeInfo", recipeInfo);
+          changeResultsInfo(recipeInfo);
 
-      let recipe = response[0].data;
-      console.log("response", response);
-      console.log("new recipes", recipe);
-    })
-  }
+          const promises = recipeInfo.map(async (item) => {
+            const itemResponse = await axios.get(
+              `https://api.spoonacular.com/recipes/${item.key}/information?apiKey=${apiKey}`
+            );
 
-  console.log(resultsInfo);
+            const nutritionalResponse = await axios.get(
+              `https://api.spoonacular.com/recipes/${item.key}/nutritionWidget.json?apiKey=${apiKey}`
+            )
+            return [itemResponse, nutritionalResponse];
+            // return itemResponse;
+          });
+          return Promise.all(promises);
+        })
+        .then((response) => {
+          let recipeInfo2 = [];
+          let ingredientList = [];
+          console.log("new response", response);
+          ingredientList.push(
+            response[0][0].data.extendedIngredients[0].nameClean
+          );
+
+          for (let i = 0; i < response.length; i++) {
+            // let ingredientList = response[i][0].data.extendedIngredients;
+            // let ingredientListNamesOnly = [];
+
+            // for (let j = 0; j < ingredientList.length; j++) {
+            //   ingredientListNamesOnly.push(ingredientList[j].nameClean);
+            // }
+            console.log("test", [i]);
+            recipeInfo2.push({
+              name: response[i][0].data.title,
+              img: response[i][0].data.image,
+              key: response[i][0].data.id,
+              time: response[i][0].data.readyInMinutes,
+              source: response[i][0].data.creditsText,
+              sourceUrl: response[i][0].data.sourceUrl,
+              likes: response[i][0].data.aggregateLikes,
+              description: response[i][0].data.summary,
+              ingredientList: response[i][0].data.extendedIngredients,
+              instructions: response[i][0].data.instructions,
+              carlories: response[i][1].data.carlories
+            });
+          }
+
+          changeResultsInfo(recipeInfo2);
+        });
+    }
+  }, [searchName]);
 
   return (
     <div>
-      <h1>Recipe Search</h1>
+      <h1>{searchName}</h1>
 
-      <form>
-          <label>
-            <input
-              type="text"
-              name="name"
-              value={queryText}
-              onChange={handleInputChange}
-            />
-          </label>
-          <input type="submit" value="Submit" onClick={handleSubmit} />
-      </form>
-      <h2>{displayName}</h2>
-
-{/* 
       {resultsInfo && (
-        <ul className='cardContainer'>
+        <ul className="cardContainer">
           {resultsInfo.map((recipe) => (
             <FlipCard
               name={recipe.name}
@@ -148,29 +94,33 @@ function Page3() {
               time={recipe.time}
               description={recipe.description}
               ingredients={recipe.ingredientList}
-            />
-          ))}
-        </ul>
-      )}    
-*/}
-
-
-      {dummyData && (
-        <ul className='cardContainer'>
-          {dummyData.map((recipe) => (
-            <FlipCard
-              name={recipe.name}
-              img={recipe.img}
-              likes={recipe.likes}
-              time={recipe.time}
-              description={recipe.description}
-              ingredients={recipe.ingredientList}
+              instructions={recipe.instructions}
+              source={recipe.source}
             />
           ))}
         </ul>
       )}
 
-      
+      {pasta && (
+        <ul className="cardContainer">
+          {pasta.map((recipe) => (
+            <FlipCard
+              name={recipe[0].title}
+              img={recipe[0].image}
+              likes={recipe[0].aggregateLikes}
+              time={recipe[0].readyInMinutes}
+              description={recipe[0].summary}
+              ingredients={recipe[0].extendedIngredients}
+              instructions={recipe[0].instructions}
+              source={recipe[0].sourceName}
+              calories={recipe[1].calories}
+              carbs={recipe[1].carbs}
+              fat={recipe[1].fat}
+              protein={recipe[1].protein}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

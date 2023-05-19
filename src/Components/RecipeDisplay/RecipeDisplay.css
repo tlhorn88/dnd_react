@@ -1,0 +1,62 @@
+.recipeDisplay {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  background-color: azure;
+  margin-top: 60px;
+}
+
+.displayImage {
+  width: 50%;
+}
+
+.miscGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.likes {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.time {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.third {
+  grid-area: 1 / 3 / 2 / 4;
+}
+
+.instructionsIngredients {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ingredients {
+  grid-area: 1 / 1 / 2 / 3;
+  padding: 10px;
+}
+
+.instructions {
+  grid-area: 1 / 3 / 2 / 6; 
+  padding: 10px;
+}
+
+.ingredient {
+  margin: 15px;
+  display: flex;
+}

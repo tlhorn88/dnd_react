@@ -93,10 +93,15 @@
 .ingredientList {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .ingredient {
   margin: 3px;
-  background-color: var(--secondary);
-  color: var(--onSecondary);
+  padding: 3px;
+  text-transform: uppercase;
+}
+
+.singleIngredient {
+  display: flex;
 }

@@ -3,7 +3,6 @@ import foodImage1 from '../../images/foodImage1.jpg';
 
 
 function Home() {
-  // const image = [foodImage1];
   const style = { 
     backgroundImage: 'url(' + foodImage1 + ')',
 };
@@ -12,7 +11,7 @@ function Home() {
   return (
     <div className='home'>
       <div className='left'>
-        <h1>Meow meow meow</h1>
+        <h1>Welcome to this wonderfully underwhelming recipe app!</h1>
         <img className='testImage' src={require("../../images/foodImage1.jpg")} />
       </div>
       <div className='right' style={style}>

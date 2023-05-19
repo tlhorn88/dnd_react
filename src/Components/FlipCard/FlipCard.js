@@ -3,8 +3,6 @@ import './FlipCard.css';
 import { NavLink } from 'react-router-dom';
 
 function FlipCard(props) {
-  console.log('name props', props.name);
-
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleHover = () => {
@@ -12,6 +10,24 @@ function FlipCard(props) {
   };
 
   return (
+    <NavLink
+      state={{
+        name: props.name,
+        img: props.img,
+        time: props.time,
+        likes: props.likes,
+        instructions: props.instructions,
+        source: props.source,
+        ingredients: props.ingredients,
+        calories: props.calories,
+        carbs: props.carbs,
+        fat: props.fat,
+        protein: props.protein
+      }}
+      to={{
+        pathname: '/recipeDisplay',
+      }}
+    >
     <div
       className={`cardTotal ${isFlipped ? 'flipped' : ''}`}
       onMouseEnter={handleHover}
@@ -29,32 +45,18 @@ function FlipCard(props) {
           <div className="description">
             <p>{props.time + ' mins.'}</p>
             <p>{'♥ ' + props.likes}</p>
+            <p>{'Calories per serving: ' + props.calories}</p>
+            <p>{'Carbs: ' + props.carbs}</p>
 
-            <div className="ingredientList">
-              {props.ingredients?.map((ingredient) => (
-                <p className="ingredient">{ingredient}</p>
-              ))}
-            </div>
+            <p>{'Fat: ' + props.fat}</p>
+            <p>{'Protein: ' + props.protein}</p>
 
-            <NavLink
-              name="cow"
-              state={{
-                name: props.name,
-                img: props.img,
-                time: props.time,
-                likes: props.likes,
-                ingredients: props.ingredients
-              }}
-              to={{
-                pathname: '/recipeDisplay',
-              }}
-            >
               <div className="readMore">Full recipe</div>
-            </NavLink>
           </div>
         </div>
       </div>
     </div>
+            </NavLink>
   );
 }
 

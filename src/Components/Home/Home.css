@@ -1,18 +1,19 @@
 .home {
-  background-color: brown;
   display: grid;
-  position: absolute;
-  /* top: 10px; */
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   height: 100vh;
   width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 90%;
+  margin-top: 60px;
 }
 
 .testImage {
-  /* object-fit: cover; */
   width: 10%;
 }
 
@@ -22,8 +23,6 @@
 }
 
 .right {
-  /* background-color: blue ; */
-  /* background-image: url('./foodImage1.jpg'); */
   grid-area: 1 / 3 / 6 / 6;
   background-size: cover;
   background-position: center;
