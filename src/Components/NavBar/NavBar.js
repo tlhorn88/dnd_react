@@ -2,11 +2,10 @@ import './NavBar.css';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-
 const links = [
-  { path: '/', text: 'Home' },
+  { path: '/', text: 'About' },
   { path: 'page2', text: 'Cocktail Search' },
-  { path: 'page3', text: 'Recipe Search' },
+  // { path: 'randomRecipe', text: 'Random Recipe' },
 ];
 
 function NavBar() {
@@ -15,7 +14,7 @@ function NavBar() {
 
   const handleInputChange = (e) => {
     changeQueryText(e.target.value);
-    console.log("target value!!", e.target.value);
+    console.log('target value!!', e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -39,15 +38,15 @@ function NavBar() {
         })}
         <li>
           <Link to="https://www.google.com" target="_blank">
-            External Test
+            Portfolio
           </Link>
         </li>
         <li>
           <form>
             <label>
-              <input type="text" name="name" onChange={handleInputChange}/>
+              <input type="text" name="name" onChange={handleInputChange} />
             </label>
-            <input type="submit" value="Submit" onClick={handleSubmit}/>
+            <input type="submit" value="Submit" onClick={handleSubmit} />
           </form>
         </li>
       </ul>

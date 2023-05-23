@@ -20,6 +20,7 @@
 .left {
   background-color: rgb(12, 56, 56);
   grid-area: 1 / 1 / 6 / 3;
+  text-align: center;
 }
 
 .right {

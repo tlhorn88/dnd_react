@@ -4,14 +4,22 @@ import './RecipeDisplay.css';
 
 function RecipeDisplay() {
   const location = useLocation();
-  const { name, instructions, img, time, likes, ingredients, source, calories, fat, protein, carbs } =
-    location.state;
-  console.log('ing', ingredients);
-  console.log('source', source);
+  const {
+    name,
+    instructions,
+    img,
+    time,
+    likes,
+    ingredients,
+    source,
+    calories,
+    fat,
+    protein,
+    carbs,
+  } = location.state;
 
   return (
     <div className="recipeDisplay">
-      <p>Breadcrumbs Breadcrumbs Breadcrumbs</p>
       <img className="displayImage" src={img} alt={name} />
       <p>RECIPE COURTESY OF {source}</p>
       <h1>{name}</h1>
@@ -45,7 +53,12 @@ function RecipeDisplay() {
           ))}
         </div>
         <div className="instructions">
-          <p>{instructions}</p>
+          {instructions[0].steps.map((instruction) => (
+            <div>
+              <h2 className='step'>{instruction.number + '.  '}</h2>
+              <p className='step'>{instruction.step}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
