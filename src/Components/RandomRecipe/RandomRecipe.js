@@ -4,12 +4,14 @@ import axios from 'axios';
 
 function RandomRecipe() {
   const [resultsInfo, changeResultsInfo] = useState([]);
+  const [isLoading, changeIsLoading] = useState(true);
 
   useEffect(() => {
     const apiKey = '759ce36523be4f7ab7f8ff69727425af';
+    changeIsLoading(true);
     axios
       .get(
-        `https://api.spoonacular.com/recipes/random?apiKey=759ce36523be4f7ab7f8ff69727425af&number=4&instructionsRequired=true`
+        `https://api.spoonacular.com/recipes/random?apiKey=759ce36523be4f7ab7f8ff69727425af&number=2&instructionsRequired=true`
       )
       .then((response) => {
         const recipes = response.data.recipes;
@@ -52,9 +54,11 @@ function RandomRecipe() {
         });
 
         changeResultsInfo(recipeInfo2);
+        changeIsLoading(false);
       })
       .catch((error) => {
         console.error('Error:', error);
+        changeIsLoading(false);
       });
   }, []);
 
@@ -63,7 +67,12 @@ function RandomRecipe() {
   return (
     <div>
       <ul className="cardContainer">
-        {resultsInfo.length > 0 ? (
+        {isLoading ? (
+          <div>
+            <p className='loadingText'>Loading...</p>
+            {/* <img src="../../images/recipebook.jpg" /> */}
+          </div>
+        ) : (
           resultsInfo.map((recipe) => (
             <FlipCard
               key={recipe.key}
@@ -81,8 +90,6 @@ function RandomRecipe() {
               protein={recipe.protein}
             />
           ))
-        ) : (
-          <p>Loading...</p>
         )}
       </ul>
     </div>

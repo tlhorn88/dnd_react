@@ -28,3 +28,12 @@
   background-size: cover;
   background-position: center;
 }
+
+.summaryList {
+  list-style: none;
+  padding: 10px;
+}
+
+.summaryList li {
+  margin: 15px;
+}

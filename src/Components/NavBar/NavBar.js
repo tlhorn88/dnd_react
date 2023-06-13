@@ -1,11 +1,12 @@
 import './NavBar.css';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
 
 const links = [
   { path: '/', text: 'About' },
-  { path: 'page2', text: 'Cocktail Search' },
-  // { path: 'randomRecipe', text: 'Random Recipe' },
+
+  { path: 'randomRecipe', text: 'Random Recipes' },
 ];
 
 function NavBar() {
@@ -36,17 +37,29 @@ function NavBar() {
             </li>
           );
         })}
-        <li>
-          <Link to="https://www.google.com" target="_blank">
+        {/* <li>
+          <Link to="https://www.google.com" target="_blank" className='navItem'>
             Portfolio
           </Link>
-        </li>
+        </li> */}
         <li>
-          <form>
+          <form className="searchField">
             <label>
-              <input type="text" name="name" onChange={handleInputChange} />
+              <input
+                type="text"
+                name="name"
+                placeholder="enter search item"
+                onChange={handleInputChange}
+                
+              />
             </label>
-            <input type="submit" value="Submit" onClick={handleSubmit} />
+            <input
+              type="submit"
+              value=""
+              onClick={handleSubmit}
+              style={{ display: 'none' }}
+            />
+            <SearchIcon onClick={handleSubmit} className="searchIcon" />
           </form>
         </li>
       </ul>

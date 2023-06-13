@@ -45,8 +45,8 @@ function RecipeDisplay() {
               />
 
               <p className="ingredient">
-                {ingredient.measures.us.amount}
-                {ingredient.measures.us.unitShort}
+                {ingredient.measures.us.amount + ' '} 
+                {ingredient.measures.us.unitShort + ' '}
                 {ingredient.nameClean}
               </p>
             </div>

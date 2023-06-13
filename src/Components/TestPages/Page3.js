@@ -13,11 +13,11 @@ function Page3() {
   useEffect(() => {
     if (searchName) {
       const apiKey = '759ce36523be4f7ab7f8ff69727425af';
-      changeResultsInfo([]); // Reset resultsInfo state
+      changeResultsInfo([]);
 
       axios
         .get(
-          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchName}&number=4&instructionsRequired=true`
+          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${searchName}&number=2&instructionsRequired=true`
         )
         .then((response) => {
           console.log('response!', response);
@@ -87,17 +87,18 @@ function Page3() {
   }, [searchName]);
 
   return (
-    <div className="cardContainer">
+    <div>
       {noResults && (
         <h2>
-          We're sorry. We couldn't find anything matching "{searchName}". Please
-          double-check your spelling or try something like "chocolate" instead.
+          We're sorry. We couldn't find anything matching "{searchName}." Please
+          double-check your spelling or try searching for "chocolate" instead.
         </h2>
       )}
 
       {resultsInfo.length > 0 && (
-        <ul>
+        <div>
           <h2>Results for {searchName}</h2>
+        <ul className="cardContainer">
           {resultsInfo.map((recipe) => (
             <FlipCard
               key={recipe.key}
@@ -116,10 +117,10 @@ function Page3() {
             />
           ))}
         </ul>
+        </div>
       )}
 
-      {pasta && (
-        <ul className="cardContainer">
+        {/* <ul className="cardContainer">
           {pasta.map((recipe) => (
             <FlipCard
               key={recipe[0].id}
@@ -137,8 +138,8 @@ function Page3() {
               protein={recipe[1].protein}
             />
           ))}
-        </ul>
-      )}
+        </ul> */}
+      {/* ) */}
     </div>
   );
 }

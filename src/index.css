@@ -1,23 +1,18 @@
-/* :root {
-  --background1: #292929;
-  --background2: #0E1927;
-  --surface: #616E7E;
-  --primary: #BB607B;
-  --secondary: #1F4D6E;
-  --onBackground: #AF9DAE;
-  --onSurface: #CFC2D0;
-  --onPrimary: #CFC2D0;
-  --onSecondary: #CFC2D0;
-} */
-
 :root {
-  --background1: #232946;
-  --background2: #232946;
+  --background1: #edf0f2;
+  
+  --background2: #edf0f2;
   --surface: #fffffe;
   --primary: #b8c1ec;
-  --secondary: #d4939d;
+  --secondary: #a8cccb;
   --onBackground: #b8c1ec;
   --onSurface: #232946;
   --onPrimary: #232946;
-  --onSecondary: #232946;
+  --onSecondary: #fdfbfc;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+body {
+  font-family: 'Josefin Sans', cursive;
 }

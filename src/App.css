@@ -5,15 +5,18 @@ body {
 
 .cardContainer {
   background-color: var(--background2);
+  background-color: var(--background1);
   color: var(--background2);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-    margin-left: auto;
-    margin-right: auto;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 80%;
-    background-color: azure;
-    margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 80%;
+  margin-top: 60px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
 }
